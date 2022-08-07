@@ -31,6 +31,7 @@ class SubscriptionWrapper<T> {
   }
 }
 
+/** Represents a type that manages subjects and subscriptions */
 export class SubjectManager {
   private readonly _subjects = new Map<symbol, SubjectWrapper<unknown>>();
 
@@ -40,6 +41,12 @@ export class SubjectManager {
     this._logger = logger;
   }
 
+  /**
+   * Registers a subject
+   * @param subject The subject to be registered
+   * @param dispatcher The subscription dispatcher to use with this subject. Defaults to {@link multicastDispatcher}
+   * @returns true if successfully registered; otherwise false
+   */
   register(subject: Subject, dispatcher: SubscriptionDispatcher<unknown> = multicastDispatcher): boolean {
     if (this._subjects.has(subject.key)) {
       this._logger?.warn(`Duplicate subject ${subject.key.toString()} already registered`);
@@ -50,10 +57,21 @@ export class SubjectManager {
     return true;
   }
 
+  /**
+   * Checks if a subject is registered with this manager
+   * @param subject The subject to check
+   * @returns true if subject is registered; otherwise false
+   */
   isRegistered(subject: Subject): boolean {
     return this._subjects.has(subject.key);
   }
 
+  /**
+   * Attaches a subscription to a subject
+   * @param subject The subject to add a subscription
+   * @param callback The callback when a subject event is raised
+   * @returns A subscription
+   */
   subscribe<T>(subject: Subject, callback: SubscriptionCallback<T>): Subscription {
     return this._subscribe(subject, callback as SubscriptionCallback<unknown>);
   }
@@ -80,6 +98,11 @@ export class SubjectManager {
     return subscriptionWrapper.subscription;
   }
 
+  /**
+   * Removes a subscription from subject notifications
+   * @param subject The subject to remove the subscription from
+   * @param subscription The subscription to remove
+   */
   unsubscribe(subject: Subject, subscription: Subscription): void {
     const subjectWrapper = this._subjects.get(subject.key);
 
@@ -100,6 +123,12 @@ export class SubjectManager {
     subscription.unsubscribe = () => {};
   }
 
+  /**
+   * Check to see if a subscription is attached to a subject
+   * @param subject The subject to check for the specified subscription
+   * @param subscription The subscription to check
+   * @returns true if subject has the specified subscription; otherwise false
+   */
   hasSubscription(subject: Subject, subscription: Subscription): boolean {
     const subjectWrapper = this._subjects.get(subject.key);
 
@@ -113,6 +142,11 @@ export class SubjectManager {
     return index >= 0;
   }
 
+  /**
+   * Gets the number of subscriptions for a subject
+   * @param subject The subject to inspect
+   * @returns The number of subscriptions for the specified subject
+   */
   subscriptionCount(subject: Subject): number {
     const subjectWrapper = this._subjects.get(subject.key);
 
@@ -124,6 +158,12 @@ export class SubjectManager {
     return subjectWrapper.subscriptions.length;
   }
 
+  /**
+   * Notify subscribers of a subject of an event
+   * @param subject The subject used to raise a notification
+   * @param context The context to send to subscriptions
+   * @returns A promise
+   */
   async notify(subject: Subject, context: SubscriptionContext<unknown>): Promise<void> {
     const subjectWrapper = this._subjects.get(subject.key);
 
@@ -138,4 +178,5 @@ export class SubjectManager {
   }
 }
 
+/** Represents a global SubjectManager instance */
 export const subjectManager = new SubjectManager();

@@ -8,4 +8,5 @@ export class MulticastDispatcher<T> implements SubscriptionDispatcher<T> {
   }
 }
 
+/** Represents a global multicast dispatcher instance */
 export const multicastDispatcher = new MulticastDispatcher();

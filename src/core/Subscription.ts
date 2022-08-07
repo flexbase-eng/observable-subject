@@ -1,5 +1,8 @@
+/** Represents a subscription */
 export interface Subscription {
+  /** The key used to identify this subscription */
   get key(): symbol;
+  /** Unsubscribes from subject notifications */
   unsubscribe: () => void;
 }
 

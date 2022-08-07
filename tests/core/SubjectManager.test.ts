@@ -2,7 +2,7 @@ import { noopLogger } from '@flexbase/logger';
 import { Subject, subjectManager, multicastDispatcher } from '../../src/index';
 
 test('SubjectManager register', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const success = subjectManager.register(sub);
 
@@ -12,7 +12,7 @@ test('SubjectManager register', () => {
 });
 
 test('SubjectManager register duplicate', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   let success = subjectManager.register(sub);
 
@@ -26,7 +26,7 @@ test('SubjectManager register duplicate', () => {
 });
 
 test('SubjectManager not registered', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
   const loggerMethod = jest.spyOn(noopLogger, 'warn');
 
   expect(subjectManager.isRegistered(sub)).toBe(false);
@@ -35,7 +35,7 @@ test('SubjectManager not registered', () => {
 });
 
 test('SubjectManager subscribe', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const success = subjectManager.register(sub);
 
@@ -50,7 +50,7 @@ test('SubjectManager subscribe', () => {
 });
 
 test('SubjectManager subscribe not registered', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const loggerMethod = jest.spyOn(noopLogger, 'warn');
   const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
@@ -70,7 +70,7 @@ test('SubjectManager subscribe not registered', () => {
 });
 
 test('SubjectManager unsubscribe', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
 
@@ -96,7 +96,7 @@ test('SubjectManager unsubscribe', () => {
 });
 
 test('SubjectManager unsubscribe multiple calls does nothing', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
   const loggerMethod = jest.spyOn(noopLogger, 'warn');
@@ -127,7 +127,7 @@ test('SubjectManager unsubscribe multiple calls does nothing', () => {
 });
 
 test('SubjectManager unsubscribe not registered', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
   const loggerMethod = jest.spyOn(noopLogger, 'warn');
 
   subjectManager.unsubscribe(sub, { key: sub.key, unsubscribe: () => {} });
@@ -137,7 +137,7 @@ test('SubjectManager unsubscribe not registered', () => {
 });
 
 test('SubjectManager unsubscribe no subscription', () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
   const loggerMethod = jest.spyOn(noopLogger, 'warn');
 
   const success = subjectManager.register(sub);
@@ -151,7 +151,7 @@ test('SubjectManager unsubscribe no subscription', () => {
 });
 
 test('SubjectManager notify', async () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const fn = { m: (id: number) => id + 1 };
   const fnMock = jest.spyOn(fn, 'm');
@@ -160,18 +160,20 @@ test('SubjectManager notify', async () => {
 
   expect(success).toBe(true);
 
-  const subscription = subjectManager.subscribe(sub, _ => {
-    fn.m(1);
+  const subscription = subjectManager.subscribe<number>(sub, context => {
+    fn.m(context.value);
     return Promise.resolve();
   });
 
   await subjectManager.notify(sub, { value: 1 });
 
   expect(fnMock).toBeCalledTimes(1);
+
+  subscription.unsubscribe();
 });
 
 test('SubjectManager notify multiple subscribers', async () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const fn = { m: (id: number) => id + 1 };
   const fnMock = jest.spyOn(fn, 'm');
@@ -210,7 +212,7 @@ test('SubjectManager notify multiple subscribers', async () => {
 });
 
 test('SubjectManager notify not registered', async () => {
-  let sub: Subject = { key: Symbol() };
+  const sub: Subject = { key: Symbol() };
 
   const multicastDispatcherMock = jest.spyOn(multicastDispatcher, 'dispatch');
   const loggerMethod = jest.spyOn(noopLogger, 'warn');

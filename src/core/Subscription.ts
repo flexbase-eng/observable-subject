@@ -6,8 +6,7 @@ export interface Subscription {
   unsubscribe: () => void;
 }
 
-/** @internal */
-export class NoopSubscription implements Subscription {
+class NoopSubscription implements Subscription {
   private readonly _key = Symbol();
   get key(): symbol {
     return this._key;
@@ -16,3 +15,6 @@ export class NoopSubscription implements Subscription {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   unsubscribe(): void {}
 }
+
+/** Represents a global no-op subscription instance */
+export const noopSubscription = new NoopSubscription();

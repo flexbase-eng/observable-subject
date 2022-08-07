@@ -1,7 +1,7 @@
 import { Logger } from '@flexbase/logger';
 import { Subject } from './Subject';
 import { SubscriptionDispatcher } from './SubscriptionDispatcher';
-import { NoopSubscription, Subscription } from './Subscription';
+import { noopSubscription, Subscription } from './Subscription';
 import { SubscriptionContext } from './SubscriptionContext';
 import { multicastDispatcher } from './MulticastDispatcher';
 import { SubscriptionCallback } from './SubscriptionCallback';
@@ -81,7 +81,7 @@ export class SubjectManager {
 
     if (!subjectWrapper) {
       this._logger?.warn(`Subject ${subject.key.toString()} has not been registered`);
-      return new NoopSubscription();
+      return noopSubscription;
     }
 
     const subscription: Subscription = {

@@ -306,6 +306,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@flexbase/logger@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@flexbase/logger/-/logger-1.3.0.tgz#895d0b5f2350cc589c86141c0d873ddd97ade7a5"
+  integrity sha512-FAkgtHzYojhSj+bfE97Y+hNFvZoO/9G2TKcLsHPOBblRnevApNKhWma9P8qY87Q1d+OwJcwb6/Qr7O5eqqpuLw==
+
 "@flexbase/packr@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@flexbase/packr/-/packr-1.2.0.tgz#e5bb439b97912b88b35688070a4291cb60cbbbc0"

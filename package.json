@@ -1,7 +1,7 @@
 {
-  "name": "@flexbase/template-typescript-package",
+  "name": "@flexbase/observable-subject",
   "version": "0.0.1",
-  "description": "template repo for npmjs packages utilizing typescript",
+  "description": "Observable subject event bus",
   "author": {
     "name": "Flexbase Technologies",
     "email": "hello@flexbase.app",
@@ -9,18 +9,15 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/flexbase-eng/template-typescript-package/issues"
+    "url": "https://github.com/flexbase-eng/observable-subject/issues"
   },
-  "homepage": "https://github.com/flexbase-eng/template-typescript-package#readme",
+  "homepage": "https://github.com/flexbase-eng/observable-subject#readme",
   "keywords": [
     "flexbase"
   ],
-  "contributors": [
-    "Chris Fowlkes <chris.fowlkes@flexbase.app>"
-  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flexbase-eng/template-typescript-package.git"
+    "url": "git+https://github.com/flexbase-eng/observable-subject.git"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -49,7 +46,9 @@
       "eslint --max-warnings=0"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "@flexbase/logger": "^1.3.0"
+  },
   "devDependencies": {
     "@flexbase/packr": "^1.2.0",
     "@types/jest": "^28.1.4",

@@ -1,5 +1,7 @@
-const world = 'world';
-
-export function hello(who: string = world): string {
-  return `Hello ${who}!`;
-}
+export { Subject } from './core/Subject';
+export { subjectManager, SubjectManager } from './core/SubjectManager';
+export { Subscription } from './core/Subscription';
+export { SubscriptionContext } from './core/SubscriptionContext';
+export { SubscriptionDispatcher } from './core/SubscriptionDispatcher';
+export { multicastDispatcher, MulticastDispatcher } from './core/MulticastDispatcher';
+export { SubscriptionCallback } from './core/SubscriptionCallback';

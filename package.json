@@ -22,9 +22,15 @@
     "type": "git",
     "url": "git+https://github.com/flexbase-eng/observable-subject.git"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -57,7 +63,6 @@
     "@types/node": "^18.15.3",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "@vitejs/plugin-react": "latest",
     "@vitest/coverage-c8": "latest",
     "@vitest/coverage-istanbul": "latest",
     "eslint": "latest",
@@ -69,9 +74,9 @@
     "lint-staged": "latest",
     "moq.ts": "^10.0.2",
     "prettier": "^2.8.4",
-    "rollup-plugin-typescript-paths": "^1.4.0",
     "typescript": "^4.9.5",
     "vite": "latest",
+    "vite-plugin-dts": "^2.1.0",
     "vitest": "latest"
   },
   "eslintConfig": {
@@ -175,7 +180,7 @@
     ]
   },
   "packr": {
-    "output": "output",
+    "output": "dist",
     "properties": [
       "name",
       "version",
@@ -194,7 +199,6 @@
       "keywords"
     ],
     "include": [
-      "dist",
       "README.md",
       "LICENSE",
       "yarn.lock"

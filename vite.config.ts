@@ -1,38 +1,30 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from 'vite';
-import typescript from '@rollup/plugin-typescript';
 import path from 'path';
-import { typescriptPaths } from 'rollup-plugin-typescript-paths';
+import typescript from '@rollup/plugin-typescript';
+import pkg from './package.json' assert { type: 'json' };
+import dts from 'vite-plugin-dts';
+
+const resolvePath = (str: string) => path.resolve(__dirname, str);
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    manifest: true,
-    minify: true,
-    reportCompressedSize: true,
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: resolvePath('./src/index.ts'),
+      name: 'index',
       fileName: 'index',
-      formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: [],
-      plugins: [
-        typescriptPaths({
-          preserveExtensions: true,
-        }),
-        typescript({
-          sourceMap: false,
-          declaration: true,
-          outDir: 'dist',
-        }),
-      ],
+      plugins: [typescript()],
+      external: [...Object.keys(pkg.dependencies || {})],
     },
   },
   test: {
     globals: true,
     environment: 'node',
-    setupFiles: 'tests/setup.ts',
+    setupFiles: './tests/setup.ts',
   },
+  plugins: [dts({ insertTypesEntry: true })],
 });

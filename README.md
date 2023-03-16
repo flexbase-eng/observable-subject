@@ -1,8 +1,9 @@
 # observable-subject
 
-Observable subject event bus
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=flexbase-eng_observable-subject&metric=coverage)](https://sonarcloud.io/summary/new_code?id=flexbase-eng_observable-subject)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=flexbase-eng_observable-subject&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=flexbase-eng_observable-subject)
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=flexbase-eng_observable-subject&metric=coverage)](https://sonarcloud.io/summary/new_code?id=flexbase-eng_observable-subject) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=flexbase-eng_observable-subject&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=flexbase-eng_observable-subject)
+Observable subject event bus
 
 ## Installation
 

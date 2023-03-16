@@ -10,7 +10,7 @@ jobs:
       node_version: '18'
       test_command: 'test:ci'
       packr_command: 'packr'
-      artifact_folder: 'output'
+      build_artifact_folder: 'output'
 
   coverage:
     needs: build

@@ -21,5 +21,7 @@ jobs:
     needs: coverage
     uses: flexbase-eng/.github/.github/workflows/deploy.npm.yml@main
     with:
+      node_version: '18'
       tag: beta
+      build_artifact_folder: 'output'
     secrets: inherit

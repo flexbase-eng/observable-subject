@@ -22,4 +22,5 @@ jobs:
     with:
       node_version: '18'
       tag: beta
+      build_artifact_folder: ''
     secrets: inherit

@@ -12,16 +12,9 @@
     "declaration": true,
     "declarationDir": "dist",
     "stripInternal": true,
-    "sourceMap": false,
-    "baseUrl": ".",
+    "sourceMap": true,
+    "noEmit": true,
+    "baseUrl": "."
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests", "output"],
-  "typedocOptions": {
-    "entryPoints": [
-      "src/index.ts"
-    ],
-    "out": "docs",
-    "theme": "github-wiki"
-  }
+  "include": ["src", "vite.config.ts"]
 }

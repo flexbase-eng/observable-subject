@@ -25,7 +25,7 @@ import { Subject, subjectManager } from '@flexbase/observable-subject';
 const subject: Subject = { key: Symbol() };
 
 // register the subject
-subjectManager.register(subject);
+await subjectManager.register(subject);
 
 // subscribe to the subject
 const subscription = subjectManager.subscribe<number>(subject, async context => {

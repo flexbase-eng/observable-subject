@@ -1,3 +1,4 @@
+import { test, expect, vi } from 'vitest';
 import { noopLogger } from '@flexbase/logger';
 import { Subject, subjectManager, multicastDispatcher } from '../../src/index';
 
@@ -27,7 +28,7 @@ test('SubjectManager register duplicate', () => {
 
 test('SubjectManager not registered', () => {
   const sub: Subject = { key: Symbol() };
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   expect(subjectManager.isRegistered(sub)).toBe(false);
   expect(subjectManager.subscriptionCount(sub)).toBe(0);
@@ -52,8 +53,8 @@ test('SubjectManager subscribe', () => {
 test('SubjectManager subscribe not registered', () => {
   const sub: Subject = { key: Symbol() };
 
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
-  const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
+  const subjectManagerMock = vi.spyOn(subjectManager, 'unsubscribe');
 
   const subscription = subjectManager.subscribe(sub, _ => Promise.resolve());
 
@@ -72,7 +73,7 @@ test('SubjectManager subscribe not registered', () => {
 test('SubjectManager unsubscribe', () => {
   const sub: Subject = { key: Symbol() };
 
-  const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
+  const subjectManagerMock = vi.spyOn(subjectManager, 'unsubscribe');
 
   const success = subjectManager.register(sub);
 
@@ -98,8 +99,8 @@ test('SubjectManager unsubscribe', () => {
 test('SubjectManager unsubscribe multiple calls does nothing', () => {
   const sub: Subject = { key: Symbol() };
 
-  const subjectManagerMock = jest.spyOn(subjectManager, 'unsubscribe');
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
+  const subjectManagerMock = vi.spyOn(subjectManager, 'unsubscribe');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   const success = subjectManager.register(sub);
 
@@ -128,7 +129,7 @@ test('SubjectManager unsubscribe multiple calls does nothing', () => {
 
 test('SubjectManager unsubscribe not registered', () => {
   const sub: Subject = { key: Symbol() };
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   subjectManager.unsubscribe(sub, { key: sub.key, unsubscribe: () => {} });
 
@@ -138,7 +139,7 @@ test('SubjectManager unsubscribe not registered', () => {
 
 test('SubjectManager unsubscribe no subscription', () => {
   const sub: Subject = { key: Symbol() };
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   const success = subjectManager.register(sub);
 
@@ -154,7 +155,7 @@ test('SubjectManager notify', async () => {
   const sub: Subject = { key: Symbol() };
 
   const fn = { m: (id: number) => id + 1 };
-  const fnMock = jest.spyOn(fn, 'm');
+  const fnMock = vi.spyOn(fn, 'm');
 
   const success = subjectManager.register(sub);
 
@@ -176,7 +177,7 @@ test('SubjectManager notify multiple subscribers', async () => {
   const sub: Subject = { key: Symbol() };
 
   const fn = { m: (id: number) => id + 1 };
-  const fnMock = jest.spyOn(fn, 'm');
+  const fnMock = vi.spyOn(fn, 'm');
 
   const success = subjectManager.register(sub);
 
@@ -214,8 +215,8 @@ test('SubjectManager notify multiple subscribers', async () => {
 test('SubjectManager notify not registered', async () => {
   const sub: Subject = { key: Symbol() };
 
-  const multicastDispatcherMock = jest.spyOn(multicastDispatcher, 'dispatch');
-  const loggerMethod = jest.spyOn(noopLogger, 'warn');
+  const multicastDispatcherMock = vi.spyOn(multicastDispatcher, 'dispatch');
+  const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   await subjectManager.notify(sub, { value: 1 });
 

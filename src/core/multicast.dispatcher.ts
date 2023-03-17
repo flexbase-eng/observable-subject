@@ -1,6 +1,6 @@
-import { SubscriptionDispatcher } from './SubscriptionDispatcher';
-import { SubscriptionContext } from './SubscriptionContext';
-import { SubscriptionCallback } from './SubscriptionCallback';
+import { SubscriptionDispatcher } from './subscription.dispatcher';
+import { SubscriptionContext } from './subscription.context';
+import { SubscriptionCallback } from './subscription.callback';
 
 export class MulticastDispatcher<T> implements SubscriptionDispatcher<T> {
   async dispatch(context: SubscriptionContext<T>, callbacks: SubscriptionCallback<T>[]): Promise<void> {

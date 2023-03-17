@@ -1,3 +1,4 @@
+import { beforeAll, afterEach, vi } from 'vitest';
 import { noopLogger } from '@flexbase/logger';
 import { subjectManager } from '../src/index';
 
@@ -6,7 +7,7 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 
 export {};

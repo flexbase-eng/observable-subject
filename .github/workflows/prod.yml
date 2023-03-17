@@ -1,0 +1,31 @@
+name: Production
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    uses: flexbase-eng/.github/.github/workflows/typescript.build.yml@main
+    secrets: inherit
+    with:
+      node_version: '18'
+      test_command: 'test:ci'
+      packr_command: 'packr'
+
+  coverage:
+    needs: build
+    uses: flexbase-eng/.github/.github/workflows/typescript.sonarcloud.yml@main
+    secrets: inherit
+
+  deploy:
+    needs: coverage
+    uses: flexbase-eng/.github/.github/workflows/deploy.npm.yml@main
+    with:
+      node_version: '18'
+      build_artifact_folder: ''
+    secrets: inherit
+
+  release:
+    needs: deploy
+    uses: flexbase-eng/.github/.github/workflows/release.drafter.yml@main
+    secrets: inherit

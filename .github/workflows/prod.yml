@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    uses: flexbase-eng/.github/.github/workflows/typescript.build.yml@main
+    uses: flexbase-eng/.github/.github/workflows/build.typescript.yml@main
     secrets: inherit
     with:
       node_version: '18'
@@ -14,7 +14,7 @@ jobs:
 
   coverage:
     needs: build
-    uses: flexbase-eng/.github/.github/workflows/typescript.sonarcloud.yml@main
+    uses: flexbase-eng/.github/.github/workflows/coverage.sonarcloud.yml@main
     secrets: inherit
 
   deploy:

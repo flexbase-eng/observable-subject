@@ -16,7 +16,9 @@
     "flexbase",
     "observable",
     "subject",
-    "event-bus"
+    "event-bus",
+    "event",
+    "bus"
   ],
   "repository": {
     "type": "git",

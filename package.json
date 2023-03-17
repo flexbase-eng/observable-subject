@@ -58,6 +58,8 @@
     "@flexbase/logger": "latest"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@flexbase/packr": "latest",
     "@rollup/plugin-typescript": "^11.0.0",
     "@semantic-release/changelog": "^6.0.2",

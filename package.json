@@ -24,13 +24,12 @@
     "type": "git",
     "url": "git+https://github.com/flexbase-eng/observable-subject.git"
   },
-  "main": "./index.umd.cjs",
+  "main": "./index.cjs",
   "module": "./index.js",
-  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
+      "import": "./index.js",
+      "require": "./index.cjs"
     }
   },
   "files": [
@@ -195,6 +194,7 @@
       "main",
       "module",
       "types",
+      "exports",
       "homepage",
       "repository",
       "bugs",
@@ -208,8 +208,7 @@
     "include": [
       "README.md",
       "LICENSE",
-      "yarn.lock",
-      "CHANGELOG.md"
+      "yarn.lock"
     ]
   },
   "husky": {

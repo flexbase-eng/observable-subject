@@ -13,7 +13,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolvePath('./src/index.ts'),
-      name: 'observable-subject',
+      name: pkg.name,
+      fileName: 'index',
     },
     rollupOptions: {
       plugins: [typescript()],

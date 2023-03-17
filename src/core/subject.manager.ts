@@ -26,6 +26,7 @@ class SubscriptionWrapper<T> {
   get subscription(): Subscription {
     return this._subscription;
   }
+
   get callback(): SubscriptionCallback<T> {
     return this._callback;
   }

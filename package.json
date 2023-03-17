@@ -1,6 +1,6 @@
 {
   "name": "@flexbase/observable-subject",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Observable subject event bus",
   "author": {
     "name": "Flexbase Technologies",

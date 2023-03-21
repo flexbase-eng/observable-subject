@@ -7,7 +7,7 @@ export default defineConfig({
     setupFiles: 'tests/setup.ts',
     coverage: {
       provider: 'istanbul',
-      reporter: ['json', 'clover', 'lcov'],
+      reporter: ['lcov'],
     },
   },
 });

@@ -1,5 +1,5 @@
-import { SubscriptionCallback } from './subscription.callback';
-import { SubscriptionContext } from './subscription.context';
+import { SubscriptionCallback } from './subscription.callback.js';
+import { SubscriptionContext } from './subscription.context.js';
 
 /** Represents a subscription dispatcher */
 export interface SubscriptionDispatcher<T> {

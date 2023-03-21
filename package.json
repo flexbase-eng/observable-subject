@@ -24,13 +24,10 @@
     "type": "git",
     "url": "git+https://github.com/flexbase-eng/observable-subject.git"
   },
-  "main": "./index.cjs",
-  "module": "./index.js",
-  "exports": {
-    ".": {
-      "import": "./index.js",
-      "require": "./index.cjs"
-    }
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "engines": {
+    "node": ">=17.0.0"
   },
   "files": [
     "dist"
@@ -54,7 +51,7 @@
     "src/**/*.{ts,tsx,css,json}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@flexbase/logger": "latest"
+    "@flexbase/logger": "^1.4.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
@@ -70,9 +67,11 @@
     "@vitest/coverage-istanbul": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
+    "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-check-file": "latest",
     "eslint-plugin-filenames-simple": "latest",
     "eslint-plugin-import": "latest",
+    "eslint-plugin-require-extensions": "^0.1.2",
     "husky": "latest",
     "is-ci": "^3.0.1",
     "lint-staged": "latest",
@@ -87,24 +86,27 @@
   "eslintConfig": {
     "env": {
       "browser": true,
-      "es2021": true
+      "es2022": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": "latest"
     },
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended",
-      "plugin:import/recommended",
+      "plugin:require-extensions/recommended",
+      "plugin:import/typescript",
       "eslint-config-prettier"
     ],
     "overrides": [],
     "plugins": [
       "filenames-simple",
       "check-file",
+      "require-extensions",
       "import"
     ],
     "settings": {
-      "react": {
-        "version": "detect"
-      },
       "import/resolver": {
         "node": {
           "paths": [
@@ -173,6 +175,18 @@
           "preset": "angular",
           "releaseRules": [
             {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "message": "major*",
+              "release": "major"
+            },
+            {
+              "message": "feat*",
+              "release": "minor"
+            },
+            {
               "message": "*",
               "release": "patch"
             }
@@ -186,7 +200,7 @@
     ]
   },
   "packr": {
-    "output": "dist",
+    "output": "output",
     "properties": [
       "name",
       "version",
@@ -206,6 +220,7 @@
       "keywords"
     ],
     "include": [
+      "dist",
       "README.md",
       "LICENSE",
       "yarn.lock"

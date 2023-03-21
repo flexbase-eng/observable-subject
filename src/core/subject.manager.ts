@@ -1,10 +1,10 @@
 import { Logger } from '@flexbase/logger';
-import { Subject } from './subject.interface';
-import { SubscriptionDispatcher } from './subscription.dispatcher';
-import { noopSubscription, Subscription } from './subscription.interface';
-import { SubscriptionContext } from './subscription.context';
-import { multicastDispatcher } from './multicast.dispatcher';
-import { SubscriptionCallback } from './subscription.callback';
+import { Subject } from './subject.interface.js';
+import { SubscriptionDispatcher } from './subscription.dispatcher.js';
+import { noopSubscription, Subscription } from './subscription.interface.js';
+import { SubscriptionContext } from './subscription.context.js';
+import { multicastDispatcher } from './multicast.dispatcher.js';
+import { SubscriptionCallback } from './subscription.callback.js';
 
 interface SubjectWrapper<T> {
   subject: Subject;

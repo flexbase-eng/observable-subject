@@ -11,10 +11,12 @@ const resolvePath = (str: string) => path.resolve(__dirname, str);
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    outDir: 'dist',
     lib: {
       entry: resolvePath('./src/index.ts'),
       name: pkg.name,
-      fileName: 'index',
+      fileName: () => `index.js`,
+      formats: ['es'],
     },
     rollupOptions: {
       plugins: [typescript()],

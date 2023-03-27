@@ -9,7 +9,7 @@ import { SubscriptionCallback } from './subscription.callback.js';
 interface SubjectWrapper<T> {
   subject: Subject;
   subscriptions: SubscriptionWrapper<T>[];
-  dispatcher: SubscriptionDispatcher<T>;
+  dispatcher: SubscriptionDispatcher;
 }
 
 class SubscriptionWrapper<T> {
@@ -48,7 +48,7 @@ export class SubjectManager {
    * @param dispatcher The subscription dispatcher to use with this subject. Defaults to {@link multicastDispatcher}
    * @returns true if successfully registered; otherwise false
    */
-  register(subject: Subject, dispatcher: SubscriptionDispatcher<unknown> = multicastDispatcher): boolean {
+  register(subject: Subject, dispatcher: SubscriptionDispatcher = multicastDispatcher): boolean {
     if (this._subjects.has(subject.key)) {
       this._logger?.warn(`Duplicate subject ${subject.key.toString()} already registered`);
       return false;
@@ -74,10 +74,11 @@ export class SubjectManager {
    * @returns A subscription
    */
   subscribe<T>(subject: Subject, callback: SubscriptionCallback<T>): Subscription {
-    return this._subscribe(subject, callback as SubscriptionCallback<unknown>);
+    return this._subscribe(subject, callback);
   }
 
-  private _subscribe(subject: Subject, callback: SubscriptionCallback<unknown>): Subscription {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _subscribe(subject: Subject, callback: SubscriptionCallback<any>): Subscription {
     const subjectWrapper = this._subjects.get(subject.key);
 
     if (!subjectWrapper) {
@@ -175,7 +176,7 @@ export class SubjectManager {
 
     const callbacks = subjectWrapper.subscriptions.map(x => x.callback);
 
-    await subjectWrapper.dispatcher.dispatch(context, callbacks);
+    await subjectWrapper.dispatcher(context, callbacks);
   }
 }
 

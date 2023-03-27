@@ -154,23 +154,35 @@ test('SubjectManager unsubscribe no subscription', () => {
 test('SubjectManager notify', async () => {
   const sub: Subject = { key: Symbol() };
 
-  const fn = { m: (id: number) => id + 1 };
-  const fnMock = vi.spyOn(fn, 'm');
+  const fn1 = {
+    m: async (id: number) => {
+      await new Promise(_ => setTimeout(_, id));
+    },
+  };
+  const fnMock1 = vi.spyOn(fn1, 'm');
+
+  const fn2 = { m: (id: number) => id + 2 };
+  const fnMock2 = vi.spyOn(fn1, 'm');
 
   const success = subjectManager.register(sub);
 
   expect(success).toBe(true);
 
-  const subscription = subjectManager.subscribe<number>(sub, context => {
-    fn.m(context.value);
-    return Promise.resolve();
+  const subscription1 = subjectManager.subscribe<number>(sub, async context => {
+    await fn1.m(context.value);
+  });
+
+  const subscription2 = subjectManager.subscribe<number>(sub, context => {
+    fn2.m(context.value);
   });
 
   await subjectManager.notify(sub, { value: 1 });
 
-  expect(fnMock).toBeCalledTimes(1);
+  expect(fnMock1).toBeCalledTimes(1);
+  expect(fnMock2).toBeCalledTimes(1);
 
-  subscription.unsubscribe();
+  subscription1.unsubscribe();
+  subscription2.unsubscribe();
 });
 
 test('SubjectManager notify multiple subscribers', async () => {
@@ -185,7 +197,6 @@ test('SubjectManager notify multiple subscribers', async () => {
 
   const subscription1 = subjectManager.subscribe(sub, _ => {
     fn.m(1);
-    return Promise.resolve();
   });
 
   const subscription2 = subjectManager.subscribe<number>(sub, async context => {
@@ -215,7 +226,11 @@ test('SubjectManager notify multiple subscribers', async () => {
 test('SubjectManager notify not registered', async () => {
   const sub: Subject = { key: Symbol() };
 
-  const multicastDispatcherMock = vi.spyOn(multicastDispatcher, 'dispatch');
+  const helpers = {
+    multicastDispatcher,
+  };
+
+  const multicastDispatcherMock = vi.spyOn(helpers, 'multicastDispatcher');
   const loggerMethod = vi.spyOn(noopLogger, 'warn');
 
   await subjectManager.notify(sub, { value: 1 });

@@ -33,10 +33,10 @@ jobs:
       build_artifact_folder: 'output'
 
   deploy:
-    needs: package
+    needs: [package, coverage]
     uses: flexbase-eng/.github/.github/workflows/deploy.npm.yml@main
     secrets: inherit
     with:
       node_version: '18'
       tag: beta
-      build_artifact_folder: 'output'
+      build_artifact_folder: ''

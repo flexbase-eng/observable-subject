@@ -38,7 +38,7 @@ jobs:
     secrets: inherit
     with:
       node_version: '18'
-      build_artifact_folder: 'output'
+      build_artifact_folder: ''
 
   github-release:
     name: Update github release

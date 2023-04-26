@@ -5,28 +5,43 @@ on:
 
 jobs:
   build:
+    name: Build
     uses: flexbase-eng/.github/.github/workflows/build.typescript.yml@main
     secrets: inherit
     with:
       node_version: '18'
-      test_command: 'test:ci'
-      packr_command: 'packr'
-      build_artifact_folder: 'output'
+
+  unit-test:
+    name: Run unit tests
+    needs: build
+    uses: flexbase-eng/.github/.github/workflows/test.unit.typescript.yml@main
+    secrets: inherit
 
   coverage:
-    needs: build
+    name: Compute test coverage
+    needs: [unit-test]
     uses: flexbase-eng/.github/.github/workflows/coverage.sonarcloud.yml@main
     secrets: inherit
 
+  package:
+    name: Package artifacts
+    needs: build
+    uses: flexbase-eng/.github/.github/workflows/package.typescript.yml@main
+    secrets: inherit
+    with:
+      packr_command: 'packr'
+      build_artifact_folder: 'output'
+
   deploy:
-    needs: coverage
+    needs: [package, coverage]
     uses: flexbase-eng/.github/.github/workflows/deploy.npm.yml@main
+    secrets: inherit
     with:
       node_version: '18'
       build_artifact_folder: ''
-    secrets: inherit
 
-  release:
+  github-release:
+    name: Update github release
     needs: deploy
-    uses: flexbase-eng/.github/.github/workflows/release.drafter.yml@main
+    uses: flexbase-eng/.github/.github/workflows/notify.github.release.yml@main
     secrets: inherit

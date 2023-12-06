@@ -94,7 +94,6 @@
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended",
-      "plugin:require-extensions/recommended",
       "plugin:import/typescript",
       "eslint-config-prettier"
     ],
